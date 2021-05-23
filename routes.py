@@ -7,7 +7,7 @@ db = "mygbdatabase.db"
 
 def do_query(query, fetch):
     connection = sqlite3.connect(db)
-    cursor = conn.cursor()
+    cursor = connection.cursor()
     cursor.execute(query)
     if fetch == 1:
         results = cursor.fetchone()
@@ -18,8 +18,8 @@ def do_query(query, fetch):
 
 @app.route('/')
 def home():
-    #do_query("SELECT  ", 1)
-    return render_template("home.html", title = "cool tab")
+    do_query("SELECT  ", 2)
+    return render_template("home.html", gb = gb)
 
 # tells flask what port to run on
 if __name__ == "__main__":

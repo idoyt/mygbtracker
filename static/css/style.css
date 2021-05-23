@@ -8,17 +8,18 @@ body {
   font-size: 50px;
   width: 100%;
   border-bottom: 1px solid #CCCCC8;
-  height: 100px;
+  height: 69px;
 }
 /* The side navigation menu */
 .sidebar {
   margin: 0;
   padding: 0;
   width: 200px;
-  position: fixed;
-  height: 100% - 100px;
+  height: 100%;
   overflow: auto;
   border-right: 1px solid #CCCCC8;
+  z-index:2;
+  float: left;
 }
 
 /* Sidebar links */
@@ -69,14 +70,13 @@ div.content {
 
 .footer {
    position: absolute;
-   margin-left: 200px;
-   padding-left: 20px;
-   left: 0;
+   left: 200px;
    bottom: 0;
    height: 100px;
-   width: 100% - 200px;
+   width: 100%;
    color: inherit;
    border-top: 1px solid #CCCCC8;
+   overflow-x: hidden;
 }
 
 .wrapper {
@@ -84,4 +84,24 @@ div.content {
   padding-left: 20px;
   width: 100% - 200px;
   height
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 10px;
+  background-color: inherit;
+  padding: 10px;
+  margin-left: 200px;
+  z-index: 1;
+  width: 100% - 200px;
+  padding-right: 2
+}
+
+.grid-container > div {
+  border: 1px solid #CCCCC8;
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
 }
