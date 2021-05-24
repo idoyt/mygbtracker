@@ -19,7 +19,7 @@ def do_query(query, fetch):
 @app.route('/')
 def home():
     do_query("SELECT  ", 2)
-    return render_template("home.html", gb = gb)
+    return render_template("home.html", results = results)
 
 # tells flask what port to run on
 if __name__ == "__main__":
