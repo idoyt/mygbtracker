@@ -18,8 +18,9 @@ def do_query(query, fetch):
 
 @app.route('/')
 def home():
-    do_query("SELECT Thread.thread_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id WHERE Status.id=1;", 2)
-    return render_template("home.html", results = results)
+    results = do_query("SELECT Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.status_id WHERE Status.id=1;", 2)
+    number = do_query("SELECT Thread.id FROM Thread WHERE Thread.status_id = 1", 1)
+    return render_template("home.html", results = results, number = number)
 
 # tells flask what port to run on
 if __name__ == "__main__":

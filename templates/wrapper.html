@@ -1,11 +1,5 @@
 <div class="grid-container">
-  {% include 'wrapper.html' %}
-  {% include 'wrapper.html' %}
-  {% include 'wrapper.html' %}
-  {% include 'wrapper.html' %}
-  {% include 'wrapper.html' %}
-  {% include 'wrapper.html' %}
-  {% include 'wrapper.html' %}
-  {% include 'wrapper.html' %}
-  {% include 'wrapper.html' %}
+  {% for i in number %}
+    {% include 'container.html' %}
+  {% endfor %}
 </div>
