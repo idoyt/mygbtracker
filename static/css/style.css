@@ -87,11 +87,12 @@ div.content {
   padding-right: 2
 }
 
-.grid-container > div {
+.container {
   border: 1px solid #CCCCC8;
   background-color: rgba(255, 255, 255, 0.8);
   text-align: center;
   padding: 20px 0;
   font-size: 30px;
   overflow-y: auto;
+  font-size: 11px
 }

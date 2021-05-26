@@ -1,10 +1,11 @@
 {% for gb in results %}
-  <div>
+  <div class = "container btn btn btn-outline-dark stretched-link">
     <p>{{gb[0]}}</p>
     <p>{{gb[1]}}</p>
     <p>{{gb[2]}}</p>
     <p>${{gb[3]}}</p>
     <p>{{gb[4]}}</p>
     <p>{{gb[5]}}</p>
+    <a href="/{{id}}" class="btn btn-primary stretched-link">See Profile</a>
   </div>
    {% endfor %}
