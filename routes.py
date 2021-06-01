@@ -1,8 +1,13 @@
 from flask import Flask, render_template
+from flask_modals import Modal
 import sqlite3
+from flask_modals import render_template_modal
+
 
 app = Flask(__name__)
+modal = Modal(app)
 db = "mygbdatabase.db"
+
 
 
 def do_query(query, fetch):
@@ -42,10 +47,12 @@ def completed():
 
 @app.route('/<int:id>')
 def modal(id):
-    thread = do_query("SELECT Thread.name FROM Thread WHERE id=?;",(id,), 1)
-    return render_template("modal.html", thread = id)
+    connection = sqlite3.connect(db)
+    cursor = connection.cursor()
+    cursor.execute("SELECT Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.type_id WHERE Thread.id=?; ",(id,))
+    id = cursor.fetchone()
+    return render_template_modal("home.html", id = id, modal ='modal-form', redirect = False)
 
-    return render_template("home.html", results = results, )
 # tells flask what port to run on
 if __name__ == "__main__":
     app.run(debug=True, port=1111)
