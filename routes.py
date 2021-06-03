@@ -1,11 +1,7 @@
-from flask import Flask, render_template
-from flask_modals import Modal
+from flask import Flask, render_template, request, jsonify
 import sqlite3
-from flask_modals import render_template_modal
-
 
 app = Flask(__name__)
-modal = Modal(app)
 db = "mygbdatabase.db"
 
 
@@ -23,35 +19,46 @@ def do_query(query, fetch):
 
 @app.route('/')
 def live():
-    results = do_query("SELECT Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.status_id WHERE Status.id=1;", 2)
+    results = do_query("SELECT Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.status_id WHERE Status.id=1 ORDER BY Thread.start_date ASC;", 2)
     number = do_query("SELECT Thread.id FROM Thread WHERE Thread.status_id = 1", 1)
-    return render_template("home.html", results = results, number = number)
+    return render_template("index.html", results = results, number = number)
 
 @app.route('/gb')
 def upcoming():
     results = do_query("SELECT Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.status_id WHERE Status.id=2;", 2)
     number = do_query("SELECT Thread.id FROM Thread WHERE Thread.status_id = 1", 1)
-    return render_template("home.html", results = results, number = number)
+    return render_template("index.html", results = results, number = number)
 
 @app.route('/ic')
 def interestcheck():
     results = do_query("SELECT Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.status_id WHERE Status.id=3;", 2)
     number = do_query("SELECT Thread.id FROM Thread WHERE Thread.status_id = 1", 1)
-    return render_template("home.html", results = results, number = number)
+    return render_template("index.html", results = results, number = number)
 
 @app.route('/completed')
 def completed():
     results = do_query("SELECT Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.status_id WHERE Status.id=4;", 2)
     number = do_query("SELECT Thread.id FROM Thread WHERE Thread.status_id = 1", 1)
-    return render_template("home.html", results = results, number = number)
+    return render_template("index.html", results = results, number = number)
 
-@app.route('/<int:id>')
-def modal(id):
+#@app.route('/<int:id>')
+#def modal(id):
+    #connection = sqlite3.connect(db)
+    #cursor = connection.cursor()
+    #cursor.execute(")
+    #id = cursor.fetchone()
+    #return render_template("modal.html", id = id)
+
+@app.route("/ajaxfile",methods=["POST","GET"])
+def ajaxfile():
     connection = sqlite3.connect(db)
-    cursor = connection.cursor()
-    cursor.execute("SELECT Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.type_id WHERE Thread.id=?; ",(id,))
-    id = cursor.fetchone()
-    return render_template_modal("home.html", id = id, modal ='modal-form', redirect = False)
+    if request.method == 'POST':
+        id = request.form['id']
+        print(id)
+        cursor.execute("SELECT Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.type_id WHERE Thread.id=?; ",(id,))
+        results = cursor.fetchall()
+    return jsonify({'htmlresponse': render_template('response.html',results=results)})
+
 
 # tells flask what port to run on
 if __name__ == "__main__":
