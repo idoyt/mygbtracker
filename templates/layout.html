@@ -7,7 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="static/css/style.css">
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="static/images/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#FFFFFF">
     <meta name="description" content="Webapp">
@@ -16,6 +16,9 @@
     <meta content="Webapp" property="og:description">
     <meta content="sitename" property="og:site_name">
     <meta content="/logo512.png" property="og:image">
+    <script src="static/js.js"></script>
+
+    </script>
 
   </head>
   <body>
@@ -23,6 +26,22 @@
     {% include 'nav.html' %}
     {% include 'wrapper.html' %}
     {% block content %}{% endblock %}
-    {% include 'footer.html' %}
+
+    <div class="modal fade" id="Modal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">GB Info</h4>
+                      <button type="button" class="close" data-dismiss="modal">×</button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+    </div>
+
   </body>
 </html>

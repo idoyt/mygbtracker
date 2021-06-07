@@ -41,23 +41,16 @@ def completed():
     number = do_query("SELECT Thread.id FROM Thread WHERE Thread.status_id = 1", 1)
     return render_template("index.html", results = results, number = number)
 
-#@app.route('/<int:id>')
-#def modal(id):
-    #connection = sqlite3.connect(db)
-    #cursor = connection.cursor()
-    #cursor.execute(")
-    #id = cursor.fetchone()
-    #return render_template("modal.html", id = id)
-
-@app.route("/ajaxfile",methods=["POST","GET"])
+@app.route("/ajaxfile", methods=["POST","GET"])
 def ajaxfile():
     connection = sqlite3.connect(db)
+    cursor = connection.cursor()
     if request.method == 'POST':
-        id = request.form['id']
-        print(id)
-        cursor.execute("SELECT Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.type_id WHERE Thread.id=?; ",(id,))
-        results = cursor.fetchall()
-    return jsonify({'htmlresponse': render_template('response.html',results=results)})
+        gbid = request.form['gbid']
+        print(gbid)
+        cursor.execute("SELECT Thread.id, Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.type_id WHERE Thread.id=?; ",(id,))
+        modal = cursor.fetchall()
+    return jsonify({'htmlresponse': render_template('modal.html', modal = modal)})
 
 
 # tells flask what port to run on
