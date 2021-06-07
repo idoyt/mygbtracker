@@ -3,7 +3,7 @@ import sqlite3
 
 app = Flask(__name__)
 db = "mygbdatabase.db"
-
+#index_page_query = (f"SELECT Thread.id, Photo.photo_link, Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Status.id{status_id} ORDER BY Thread.start_date DESC;")
 
 
 def do_query(query, fetch):
@@ -19,13 +19,13 @@ def do_query(query, fetch):
 
 @app.route('/')
 def live():
-    results = do_query("SELECT Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.status_id WHERE Status.id=1 ORDER BY Thread.start_date ASC;", 2)
+    results = do_query("SELECT Thread.id, Photo.photo_link, Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Status.id=1 ORDER BY Thread.start_date DESC;", 2)
     number = do_query("SELECT Thread.id FROM Thread WHERE Thread.status_id = 1", 1)
     return render_template("index.html", results = results, number = number)
 
 @app.route('/gb')
 def upcoming():
-    results = do_query("SELECT Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.status_id WHERE Status.id=2;", 2)
+    results = do_query("SELECT Thread.thr   ead_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.status_id WHERE Status.id=2;", 2)
     number = do_query("SELECT Thread.id FROM Thread WHERE Thread.status_id = 1", 1)
     return render_template("index.html", results = results, number = number)
 
@@ -51,7 +51,6 @@ def ajaxfile():
         cursor.execute("SELECT Thread.id, Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.type_id WHERE Thread.id=?; ",(id,))
         modal = cursor.fetchall()
     return jsonify({'htmlresponse': render_template('modal.html', modal = modal)})
-
 
 # tells flask what port to run on
 if __name__ == "__main__":

@@ -1,14 +1,12 @@
 {% for row in results %}
-  <div class = "container">
-          <tr>
-              <td><img alt="picture" src="https://media.thetab.com/blogs.dir/90/files/2021/05/screenshot-2021-05-04-at-113550.png" width="100px" height="100px"></td>
-              <td>{{row[1]}}</td>
-              <td>{{row[2]}}</td>
-              <td>{{row[3]}}</td>
-              <td>{{row[4]}}</td>
-              <td>{{row[5]}}</td>
-              <td>{{row[6]}}</td>
-              <button data-id='{{row[0]}}' class="stretched-link gbinfo btn">gay</button>
-          </tr>
+  <div class = "container" width="200px">
+              <p><img alt="picture" src="{{row[1]}}" width="100px" height="100px"></p>
+              <p>{{row[2]}}</p>
+              <p>{{row[3]}}</p>
+              <p>{{row[4]}}</p>
+              <p>${{row[5]}}</p>
+              <p>{{row[6]}}</p>
+              <p>{{row[7]}}</p>
+              <a href=""></a>
   </div>
 {% endfor %}

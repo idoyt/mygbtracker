@@ -1,6 +1,6 @@
 body {
-  background-color: #000000;
-  color: #CCCCC8;
+  background-color: white;
+  color: black;
   border-color: #E9492B;
   font-family: Comic Sans MS;
 }
@@ -16,7 +16,7 @@ body {
   padding: 0;
   width: 200px;
   height: 100%;
-  overflow: auto;
+  overflow-x: hidden;
   border-right: 1px solid #CCCCC8;
   z-index:2;
   float: left;
