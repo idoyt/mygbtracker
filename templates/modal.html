@@ -1,14 +1,14 @@
 {% for row in modal %}
 <table border='0' width='100%'>
     <tr>
-        <td width="100px"><img src="{{row}}">
+        <td width="100px"><img alt="picture" src="{{row[1]}}" width="100px" height="100px">
         <td style="padding:20px;">
-          <p>{{row[1]}}</p>
-          <p>{{row[2]}}</p>
-          <p>{{row[3]}}</p>
-          <p>${{row[4]}}</p>
-          <p>{{row[5]}}</p>
-          <p>{{row[6]}}</p>
+          <b>{{row[2]}}</b>
+          <p>Status: {{row[3]}}</p>
+          <p>Type: {{row[4]}}</p>
+          <p>Price: ${{row[5]}}</p>
+          <p>Start Date: {{row[6]}}</p>
+          <p>End Date: {{row[7]}}</p>
         </td>
     </tr>
 </table>

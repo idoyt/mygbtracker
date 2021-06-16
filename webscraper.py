@@ -3,9 +3,9 @@ from bs4 import BeautifulSoup as soup
 import substring
 
 #reddit
-gb_url = "https://www.reddit.com/r/MechGroupBuys"
+url = "https://www.reddit.com/r/MechGroupBuys"
 #opening up connection, grabbing the page
-uClient = uReq(gb_url)
+uClient = uReq(url)
 page_html = uClient.read()
 uClient.close()
 
