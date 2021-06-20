@@ -30,11 +30,10 @@ def ajaxfile():
         modal = do_query("SELECT Thread.id, Photo.photo_link, Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.type_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Thread.id=?; ",(gbid,), fetchall = True)
     return jsonify({'htmlresponse': render_template('modal.html', modal = modal)})
 
-@app.route("/livesearch",methods=["POST","GET"])
-def livesearch():
-    searchbox = request.form.get["text"]
-    search_results = do_query("SELECT * FROM Thread WHERE Thread LIKE ? order by Thread",(searchbox,), fetchall  = True )
-    return jsonify(search_results)
+
+#search_results = do_query("SELECT * FROM Thread WHERE Thread.thread_name LIKE '%' || ? || '%' ORDER BY Thread.thread_name;",(searchbox,), fetchall  = True)
+
+
 
 # tells flask what port to run on
 if __name__ == "__main__":
