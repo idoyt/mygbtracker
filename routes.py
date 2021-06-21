@@ -18,17 +18,24 @@ def do_query(query, data = None, fetchall = False):
     return results
 
 @app.route('/')
-def live():
+def index():
     results = do_query("SELECT Thread.id, Photo.photo_link, Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Status.id=1 ORDER BY Thread.start_date DESC;", data = None , fetchall = True)
     number = do_query("SELECT Thread.id FROM Thread WHERE Thread.status_id = 1", data = None, fetchall = False)
     return render_template("index.html", results = results, number = number)
 
 @app.route("/ajaxfile", methods=["POST","GET"])
 def ajaxfile():
-    if request.method == "POST":
+    if request.method == 'POST':
         gbid = request.form['gbid']
         modal = do_query("SELECT Thread.id, Photo.photo_link, Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.type_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Thread.id=?; ",(gbid,), fetchall = True)
     return jsonify({'htmlresponse': render_template('modal.html', modal = modal)})
+
+@app.route('/nav', methods=["POST","GET"])
+def nav():
+    if request.method == 'POST':
+        typeid = request.form['typeid']
+        nav = do_query("SELECT Thread.id, Photo.photo_link, Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Status.id=2 ORDER BY Thread.start_date DESC;", data = None , fetchall = True")
+        return jsonify({"")})
 
 
 #search_results = do_query("SELECT * FROM Thread WHERE Thread.thread_name LIKE '%' || ? || '%' ORDER BY Thread.thread_name;",(searchbox,), fetchall  = True)

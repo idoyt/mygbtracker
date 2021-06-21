@@ -14,6 +14,17 @@ $(document).ready(function(){
     });
 });
 
+$(document).ready(function() {
+    $('.navbtn').click(function(){
+      var typeid = $(this).data('id');
+      $.ajax({
+        url: '/nav',
+        type: 'post',
+        data: {typeid: typeid},
+        success: function(data){
+          $('.container').append(data.htmlresponse);
+    }
+
 $(document).ready(function)(){
   $('#search').keydown(function()){
     $.ajax({
