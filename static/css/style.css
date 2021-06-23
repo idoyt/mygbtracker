@@ -30,16 +30,10 @@ body {
   color: inherit;
 }
 
-/* Active/current link */
-.sidebar a.active {
-  background-color: #E9492B;
-  color: white;
-}
-
 /* Links on mouse-over */
 .sidebar a:hover:not(.active) {
   background-color: #555;
-  color: #E9492B;
+  color: white;
 }
 
 /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
@@ -98,4 +92,14 @@ div.content {
     text-align: center;
     float: none;
   }
+}
+
+.navbtn {
+  width: 100%;
+}
+
+.search-box {
+  float: right;
+  width:200px;
+  padding: 15px;
 }

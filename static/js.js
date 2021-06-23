@@ -27,8 +27,6 @@ $(document).ready(function() {
 
 $(document).ready(function)(){
   $('#search').keydown(function()){
-    $.ajax({
-      url: 'search',
-      var search = $('search').val():
+      var search = $(this).val();
   }
 }

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, jsonify
 import sqlite3
 
 app = Flask(__name__)
@@ -30,15 +30,18 @@ def ajaxfile():
         modal = do_query("SELECT Thread.id, Photo.photo_link, Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.type_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Thread.id=?; ",(gbid,), fetchall = True)
     return jsonify({'htmlresponse': render_template('modal.html', modal = modal)})
 
-@app.route('/nav', methods=["POST","GET"])
+"""@app.route('/nav', methods=["POST","GET"])
 def nav():
     if request.method == 'POST':
         typeid = request.form['typeid']
         nav = do_query("SELECT Thread.id, Photo.photo_link, Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Status.id=2 ORDER BY Thread.start_date DESC;", data = None , fetchall = True")
-        return jsonify({"")})
+        return jsonify({"")})"""
 
+@app.route('/search', methods = ["POST","GET"])
+def search():
+    #search_results = do_query("SELECT * FROM Thread WHERE Thread.thread_name LIKE '%' || ? || '%' ORDER BY Thread.thread_name;",(searchbox,), fetchall  = True)
+    pass
 
-#search_results = do_query("SELECT * FROM Thread WHERE Thread.thread_name LIKE '%' || ? || '%' ORDER BY Thread.thread_name;",(searchbox,), fetchall  = True)
 
 
 
