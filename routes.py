@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 import sqlite3
 
 app = Flask(__name__)
@@ -19,9 +19,9 @@ def do_query(query, data = None, fetchall = False):
 
 @app.route('/')
 def index():
-    results = do_query("SELECT Thread.id, Photo.photo_link, Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Status.id=1 ORDER BY Thread.start_date DESC;", data = None , fetchall = True)
-    number = do_query("SELECT Thread.id FROM Thread WHERE Thread.status_id = 1", data = None, fetchall = False)
-    return render_template("index.html", results = results, number = number)
+    #results = do_query("SELECT Thread.id, Photo.photo_link, Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Status.id=1 ORDER BY Thread.start_date DESC;", data = None , fetchall = True)
+    #number = do_query("SELECT Thread.id FROM Thread WHERE Thread.status_id = 1", data = None, fetchall = False)
+    return render_template("index.html")
 
 @app.route("/ajaxfile", methods=["POST","GET"])
 def ajaxfile():
@@ -39,9 +39,22 @@ def nav():
 
 @app.route('/search', methods = ["POST","GET"])
 def search():
-    #search_results = do_query("SELECT * FROM Thread WHERE Thread.thread_name LIKE '%' || ? || '%' ORDER BY Thread.thread_name;",(searchbox,), fetchall  = True)
-    pass
-
+     connection = sqlite3.connect(db)
+     cur = connection.cursor()
+     if request.method == 'POST':
+        search_word = request.form['query']
+        print(search_word)
+        if search_word == '':
+            query = ("SELECT Thread.id, Photo.photo_link, Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Status.id=1 ORDER BY Thread.start_date DESC;")
+            cur.execute(query)
+            results = cur.fetchall()
+        else:
+            query = (f"SELECT * FROM Thread WHERE Thread.thread_name LIKE '%{search_word}%' ORDER BY Thread.thread_name;")
+            cur.execute(query)
+            numrows = int(cur.rowcount)
+            results = cur.fetchall()
+            print(numrows)
+        return jsonify({'htmlresponse': render_template('wrapper.html', results=results, numrows=numrows)})
 
 
 

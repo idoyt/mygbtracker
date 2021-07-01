@@ -31,7 +31,7 @@ body {
 }
 
 /* Links on mouse-over */
-.sidebar a:hover:not(.active) {
+.sidebar a:hover {
   background-color: #555;
   color: white;
 }
@@ -41,13 +41,6 @@ div.content {
   margin-left: 200px;
   padding: 1px 16px;
   height: 1000px;
-}
-
-.wrapper {
-  margin-left: 200px;
-  padding-left: 20px;
-  width: 100% - 200px;
-  height
 }
 
 .grid-container {
@@ -98,7 +91,7 @@ div.content {
   width: 100%;
 }
 
-.search-box {
+.searchbox {
   float: right;
   width:200px;
   padding: 15px;
