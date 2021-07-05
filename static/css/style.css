@@ -3,6 +3,7 @@ body {
   color: black;
   border-color: #E9492B;
   font-family: Comic Sans MS;
+  overflow-x: hidden;
 }
 .header {
   font-size: 50px;

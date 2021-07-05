@@ -39,22 +39,22 @@ def nav():
 
 @app.route('/search', methods = ["POST","GET"])
 def search():
-     connection = sqlite3.connect(db)
-     cur = connection.cursor()
-     if request.method == 'POST':
-        search_word = request.form['query']
-        print(search_word)
-        if search_word == '':
-            query = ("SELECT Thread.id, Photo.photo_link, Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Status.id=1 ORDER BY Thread.start_date DESC;")
-            cur.execute(query)
-            results = cur.fetchall()
-        else:
-            query = (f"SELECT * FROM Thread WHERE Thread.thread_name LIKE '%{search_word}%' ORDER BY Thread.thread_name;")
-            cur.execute(query)
-            numrows = int(cur.rowcount)
-            results = cur.fetchall()
-            print(numrows)
-        return jsonify({'htmlresponse': render_template('wrapper.html', results=results, numrows=numrows)})
+    connection = sqlite3.connect(db)
+    cur = connection.cursor()
+    if request.method == 'POST':
+         search_word = request.form['query']
+         print(search_word)
+         if search_word == '':
+             query = ("SELECT Thread.id, Photo.photo_link, Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Status.id=1 ORDER BY Thread.start_date DESC;")
+             cur.execute(query)
+             results = cur.fetchall()
+         else:
+             query = (f"SELECT * FROM Thread WHERE Thread.thread_name LIKE '%{search_word}%' ORDER BY Thread.thread_name;")
+             cur.execute(query)
+             numrows = int(cur.rowcount)
+             results = cur.fetchall()
+             print(numrows)
+    return jsonify({'htmlresponse': render_template('wrapper.html', results=results, numrows=numrows)})
 
 
 
