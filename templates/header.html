@@ -1,4 +1,10 @@
 <div class="header">
   sussybaka inc
+  <div class="searchWrapper">
+    <form method="POST" action={{ url_for('search') }}>
+        {{ searchform.csrf_token }}
+        {{ searchform.query }}{{ searchform.submit }}
+    </form>
+  </div>
   {% include 'search.html' %}
 </div>

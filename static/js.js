@@ -14,7 +14,7 @@ $(document).ready(function(){
     });
 });
 
-$(document).ready(function(){
+/* $(document).ready(function(){
   load_data();
   function load_data(query)
   {
@@ -37,4 +37,4 @@ $(document).ready(function(){
     load_data();
    }
   });
-});
+}); */
