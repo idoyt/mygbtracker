@@ -1,7 +1,6 @@
 from urllib.request import urlopen as uReq
 from bs4 import BeautifulSoup as soup
-import substring, sqlite3
-import charmap
+import substring, sqlite3, datefinder
 
 db = "mygbdatabase.db"
 
@@ -36,7 +35,7 @@ uClient.close()
 page_soup = soup(page_html, "html.parser")
 
 title = page_soup.find("div", {"class":"keyinfo"}).find("a").text
-print(str(title))
+print(str(title.encode("UTF-8")))
 
 print("\nPictures")
 
@@ -49,5 +48,15 @@ links = page_soup.find("div", {"class":"inner"}).findAll("a", {"class":"bbc_link
 for link in links:
     print(link["href"])
 
+print("\ndates")
+matches = datefinder.find_dates(page_soup.find("div", {"class":"inner"}).text, source = True)
+for match in matches:
+    print(match)
+
+print("\nstarter")
+starter_id = substring.substringByChar(substring.substringByChar(substring.substringByChar(page_soup.find("div", {"class":"poster"}).find("a")["href"], startChar="&"), startChar="="), startChar="u")[2:]
+starter_name = page_soup.find("div", {"class":"poster"}).find("a").text
+starter_img = page_soup.find("div", {"class":"poster"}).find("img",{"class":"avatar"})["src"]
+print(starter_id, starter_name, starter_img)
 
 print("done xx")
