@@ -60,18 +60,13 @@ for page in pages:
     sql = "UPDATE Thread SET start_date = ? WHERE Thread.id = ?"
     cursor.execute(sql,(matches.date(), page[0]))
     connection.commit()
-
     try:
         starter_id = substring.substringByChar(substring.substringByChar(page_soup.find("div", {"class":"poster"}).find("a")["href"], startChar=";", endChar = ""), startChar="=", endChar = "")[1:]
     except:
         starter_id = 0
         print(0)
     starter_name = page_soup.find("div", {"class":"poster"}).find("a").text
-    try:
-        starter_img = page_soup.find("div", {"class":"poster"}).find("img",{"class":"avatar"})["src"]
-    except:
-        starter_img = "0"
-        print(0)
+    cursor = connection.cursor()
     cursor.execute("SELECT Starter.id FROM Starter WHERE Starter.id = ?;",(starter_id,))
     numrows = int(len(cursor.fetchall()))
     if numrows == 0:
