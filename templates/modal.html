@@ -1,15 +1,12 @@
-{% for row in modal %}
 <table border='0' width='100%'>
     <tr>
+      {% for row in modal %}
         <td width="100px"><img alt="picture" src="{{row[1]}}" width="100px" height="100px">
+        {% endfor %}
         <td style="padding:20px;">
-          <b>{{row[2]}}</b>
-          <p>Status: {{row[3]}}</p>
-          <p>Type: {{row[4]}}</p>
-          <p>Price: ${{row[5]}}</p>
-          <p>Start Date: {{row[6]}}</p>
-          <p>End Date: {{row[7]}}</p>
+          <b>{{modal[2]}}</b>
+          <p>{{modal[3]}}</p>
+          <p>{{modal[4]}}</p>
         </td>
     </tr>
 </table>
-{% endfor %}
