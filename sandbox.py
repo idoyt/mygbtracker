@@ -10,8 +10,12 @@ page_html = uClient.read()
 uClient.close()
 
 page_soup = soup(page_html, "html.parser")
+
 try:
     x = substring.substringByChar(substring.substringByChar(page_soup.find("div", {"class":"poster"}).find("a")["href"], startChar=";", endChar = ""), startChar="=", endChar = "")[1:]
     print(1)
 except:
     print("0")
+
+starter_name = page_soup.find("div", {"class":"poster"}).find("h4").text.strip()
+print(starter_name)
