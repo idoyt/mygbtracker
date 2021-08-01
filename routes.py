@@ -21,7 +21,7 @@ def index():
     return render_template("index.html") #, results = results, number = number)
 
 @app.route('/groupbuy')
-def upcoming():
+def groupbuy():
     results = do_query("SELECT Thread.id, Photo.link, Thread.thread_name, Status.status_name, Thread.start_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Status.id=2 GROUP BY Thread.id ORDER BY Thread.start_date DESC;", data = None , fetchall = True)
     return render_template("threads.html", results = results)
 
@@ -32,15 +32,15 @@ def interestcheck():
 
 @app.route("/thread/<int:id>")
 def thread(id):
-    modal = do_query("SELECT Thread.id, Photo.link, Thread.thread_name, Status.status_name, Thread.start_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Thread.id=?; ",(id,), fetchall = True)
-    return render_template("modal.html", modal = modal)
+    results = do_query("SELECT Thread.id, Photo.link, Thread.thread_name, Status.status_name, Thread.start_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Thread.id=?; ",(id,), fetchall = True)
+    return render_template("thread.html", results = results)
 
 @app.route("/ajaxfile", methods=["POST","GET"])
 def ajaxfile():
     if request.method == 'POST':
         gbid = request.form['gbid']
-        modal = do_query("SELECT Thread.id, Photo.link, Thread.thread_name, Status.status_name, Thread.start_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Thread.id=?; ",(gbid,), fetchall = True)
-    return jsonify({'htmlresponse': render_template('modal.html', modal = modal)})
+        results = do_query("SELECT Thread.id, Photo.link, Thread.thread_name, Status.status_name, Thread.start_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Thread.id=?; ",(gbid,), fetchall = True)
+    return jsonify({'htmlresponse': render_template('modal.html', results = results)})
 
 # tells flask what port to run on
 if __name__ == "__main__":
