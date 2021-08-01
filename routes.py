@@ -30,11 +30,6 @@ def interestcheck():
     results = do_query("SELECT Thread.id, Photo.link, Thread.thread_name, Status.status_name, Thread.start_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Status.id=3 GROUP BY Thread.id ORDER BY Thread.start_date DESC;", data = None , fetchall = True)
     return render_template("threads.html", results = results)
 
-@app.route('/archive')
-def archive():
-    results = do_query("SELECT Thread.id, Photo.link, Thread.thread_name, Status.status_name, Thread.start_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Status.id=4 GROUP BY Thread.id ORDER BY Thread.start_date DESC;", data = None , fetchall = True)
-    return render_template("threads.html", results = results)
-
 @app.route("/thread/<int:id>")
 def thread(id):
     modal = do_query("SELECT Thread.id, Photo.link, Thread.thread_name, Status.status_name, Thread.start_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Thread.id=?; ",(id,), fetchall = True)
