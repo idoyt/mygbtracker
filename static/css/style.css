@@ -10,10 +10,12 @@ body {
   width: 100%;
   border-bottom: 1px solid #CCCCC8;
   height: 69px;
+  position: fixed;
+  background-color: white;
 }
 /* The side navigation menu */
 .sidebar {
-  margin: 0;
+  margin-top: 69px;
   padding: 0;
   width: 200px;
   height: 100%;
@@ -21,6 +23,8 @@ body {
   border-right: 1px solid #CCCCC8;
   z-index:2;
   float: left;
+  position: fixed;
+
 }
 
 /* Sidebar links */
@@ -55,16 +59,18 @@ div.content {
   background-color: inherit;
   padding: 10px;
   margin-left: 200px;
-  z-index: 1;
+  z-index: -1;
   width: 100% - 200px;
-  padding-right: 2
+  padding-right: 2;
+  position: absolute;
+  top: 69px
 }
 
 .container {
   border: 1px solid #CCCCC8;
   background-color: rgba(255, 255, 255, 0.8);
   text-align: center;
-  padding: 20px 0;
+  padding: 0;
   font-size: 30px;
   overflow-y: auto;
   font-size: 11px;
@@ -80,6 +86,10 @@ div.content {
   margin: 0;
 }
 
+.modal-body {
+  width: 69%;
+  height: 69%;
+}
 
 .footer {
 
@@ -103,20 +113,15 @@ div.content {
   }
 }
 
-.navbtn {
-  width: 100%;
-}
-
 #searchbar {
     text-align: center;
     padding-top: 5%;
     padding-bottom: 50px;
-
 }
 
 #search {
     font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-    padding: 30px;
+    padding: 15px;
     font-size: 20px;
     border-color: lightgrey;
     border-style: solid;
@@ -124,8 +129,8 @@ div.content {
     width: 50%;
     outline: none;
     position: absolute;
-    top: 2px;
-    right: 0px;
+    top: 15px;
+    right: 20px;
     height: 20px;
-    width: 300px;
+    width: 270px;
 }

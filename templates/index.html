@@ -1,12 +1,12 @@
 {% extends 'layout.html' %}
 {% block content %}
+<div class="grid-container">
+  <h1>WELCOME TO MY WEBSITE</h1>
+  <h2>THIS IS A WEBAPP THAT TRACKS THREADS FROM <a href="https://geekhack.org/index.php">GEEKHACK</a></h2>
+  <h2><a href="https://github.com/idoyt/mygbtracker">GITHUB</a></h2>
 
-<h1>WELCOME TO MY WEBSITE</h1>
-<h2>THIS IS A WEBAPP THAT TRACKS THREADS FROM <a href="https://geekhack.org/index.php">GEEKHACK</a></h2>
-<h2><a href="https://github.com/idoyt/mygbtracker">GITHUB</a></h2>
+  <h2>HERE ARE THE NEWEST THREADS FROM THE WEBSITE</h2>
 
-<h2>HERE ARE THE NEWEST THREADS FROM THE WEBSITE</h2>
-
-{% include 'container.html' %}
-
+  {% include 'container.html' %}
+</div>
 {% endblock %}
