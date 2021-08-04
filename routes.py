@@ -51,7 +51,7 @@ def search():
     if request.method == "POST":
         print (request.form.get("filter"))
         results = do_query("SELECT * FROM Thread WHERE Thread.thread_name LIKE '%' || ? || '%' ORDER BY Thread.thread_name;", (request.form.get("filter"),), fetchall = True)
-        if results == None:
+        if len(results) == 0:
             return redirect ("/error")
         else:
             return render_template("searchresults.html", results = results, title = "Search Results")
