@@ -19,8 +19,9 @@ def do_query(query, data = None, fetchall = False):
 
 @app.route('/')
 def index():
-    #results = do_query("SELECT Thread.id, Photo.photo_link, Thread.thread_name, Status.status_name, Type.type_name, Thread.price, Thread.start_date, Thread.end_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Type ON Type.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Status.id=1 ORDER BY Thread.start_date DESC;", data = None , fetchall = True)
-    return render_template("index.html") #, results = results, number = number)
+    newest = do_query("SELECT Thread.start_date FROM Thread ORDER BY Thread.start_date DESC;", data = None , fetchall = False)
+    results = do_query("SELECT Thread.id, Photo.link, Thread.thread_name, Status.status_name, Thread.start_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Thread.start_date = ? GROUP BY Thread.id ORDER BY Thread.start_date DESC;", (newest[0],), fetchall = True)
+    return render_template("index.html", results = results)
 
 @app.route('/groupbuy')
 def groupbuy():
