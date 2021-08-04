@@ -46,23 +46,19 @@ def ajaxfile():
 
 @app.route ("/search", methods=["POST", "GET"])
 def search():
-    #search bar, allows user to search for a specific herb and redirects them to the specific page for that herb.
+    #search bar.
     if request.method == "POST":
         print (request.form.get("filter"))
         results = do_query("SELECT * FROM Thread WHERE Thread.thread_name LIKE '%' || ? || '%' ORDER BY Thread.thread_name;", (request.form.get("filter"),), fetchall = True)
         if results == None:
             return redirect ("/error")
         else:
-            return redirect (f"/thread/{(results[0])[0]}")
+            return render_template("searchresults.html", results = results, title = "Search Results")
 
 @app.route ("/error")
 def error():
     #error page, for when user input returns no results.
     return render_template("error.html")
-
-@app.route ("/searchresults")
-def searchresults():
-    return render_template("searchresults.html", title = "Search Results")
 
 @app.errorhandler(404)
 def error404(error):
