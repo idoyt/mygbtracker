@@ -43,7 +43,7 @@ def ajaxfile():
     if request.method == 'POST':
         gbid = request.form['gbid']
         results = do_query("SELECT Thread.id, Photo.link, Thread.thread_name, Status.status_name, Thread.start_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Thread.id=?; ",(gbid,), fetchall = True)
-    return jsonify({'htmlresponse': render_template('modal.html', results = results)})
+    return jsonify({'htmlresponse': render_template('threadinfo.html', results = results)})
 
 @app.route ("/search", methods=["POST", "GET"])
 def search():

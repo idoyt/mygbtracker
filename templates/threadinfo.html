@@ -1,8 +1,6 @@
 <table border='0' width='100%'>
     <tr>
-      {% for row in results %}
-        <td width="100px"><img alt="picture" src="{{row[1]}}" width="100px" height="100px">
-        {% endfor %}
+      {% include 'slideshow.html' %}
         <td style="padding:20px;">
           <b>{{(results[0])[2]}}</b>
           <p>{{(results[0])[3]}}</p>
