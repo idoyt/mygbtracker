@@ -36,7 +36,10 @@ def interestcheck():
 @app.route("/thread/<int:id>")
 def thread(id):
     results = do_query("SELECT Thread.id, Photo.link, Thread.thread_name, Status.status_name, Thread.start_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Thread.id=?; ",(id,), fetchall = True)
-    return render_template("thread.html", results = results)
+    imgs = len(results)
+    no_img = list(range(1,int(imgs)+1, 1))
+    print(no_img)
+    return render_template("thread.html", results = results, no_img = no_img)
 
 @app.route("/ajaxfile", methods=["POST","GET"])
 def ajaxfile():
