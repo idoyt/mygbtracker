@@ -2,8 +2,8 @@
 <div class="container">
 
   <!-- Full-width images with number text -->
-  {%for img in results%}
   {%for i in no_img%}
+  {%for img in results%}
   <div class="mySlides">
     <div class="numbertext">{{i}} / {{no_img[-1]}}</div>
       <img src="{{img[1]}}" style="width:100%">
@@ -18,8 +18,8 @@
   <!-- Thumbnail images -->
   <div class="row">
     <div class="column">
-      {%for img in results%}
       {%for no_img in no_img%}
+      {%for img in results%}
       <img class="demo cursor" src="{{img[1]}}" style="width:100%" onclick="currentSlide({{no_img}})" alt="Picture">
       {%endfor%}
       {%endfor%}
