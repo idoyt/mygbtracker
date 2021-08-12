@@ -52,10 +52,7 @@ div.content {
   height: 1000px;
 }
 
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  grid-gap: 10px;
+.wrapper {
   background-color: inherit;
   padding: 10px;
   margin-left: 200px;
@@ -64,6 +61,12 @@ div.content {
   padding-right: 2;
   position: absolute;
   top: 69px
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 10px;
 }
 
 .container {
@@ -217,4 +220,11 @@ div.content {
 .active,
 .demo:hover {
   opacity: 1;
+}
+
+input {
+  border: 2px solid currentcolor;
+}
+input:invalid {
+  border: 2px dashed red;
 }
