@@ -9,16 +9,20 @@ db = "mygbdatabase.db"
 
 connection = sqlite3.connect(db)
 cursor = connection.cursor()
-sql = "SELECT Photo.link FROM Photo WHERE Photo.link LIKE '%i.imgur.com/%' OR '%imgur.com/%'"
+sql = "SELECT Photo.id, Photo.link FROM Photo" # WHERE Photo.link LIKE '%i.imgur.com/%' OR '%imgur.com/%'"
 something = cursor.execute(sql)
+results = something.fetchall()
+connection.close()
 
-for i in something:
+'''for i in something:
     valid=validators.url(i[0])
     if valid==True:
         pass
     else:
-        print("Invalid url", i[0])
+        print("Invalid url", i[0])'''
 
-#x = substring.substringByChar(y, startChar="m", endChar = "")
-#x2 = substring.substringByChar(x, startChar=".", endChar = "")
-#urllib.request.urlretrieve("https://i.imgur.com/MkrsTSL.png", f"static/images/{x2[5:]}")
+for i in results:
+    try:
+        x = urllib.request.urlretrieve(i[1], f"static/images/{i[0]}.jpg")
+    except Exception as e:
+        print(i)
