@@ -35,17 +35,17 @@ def interestcheck():
 
 @app.route("/thread/<int:id>")
 def thread(id):
-    results = do_query("SELECT Thread.id, Photo.link, Thread.thread_name, Status.status_name, Thread.start_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Thread.id=?; ",(id,), fetchall = True)
+    results = do_query("SELECT Thread.id, Starter.id, Photo.link, Link.link, Thread.thread_name, Starter.starter_name, Status.status_name, Thread.start_date FROM Thread JOIN Starter ON Starter.id = Thread.starter_id JOIN Status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id JOIN Link ON Thread.id = Link.thread_id WHERE Thread.id=?; ",(id,), fetchall = True)
     imgs = len(results)
     no_img = list(range(1,int(imgs)+1, 1))
     print(no_img)
-    return render_template("thread.html", results = results, no_img = no_img, title = results[2])
+    return render_template("thread.html", results = results, no_img = no_img, title = (results[0])[2])
 
 @app.route("/ajaxfile", methods=["POST","GET"])
 def ajaxfile():
     if request.method == 'POST':
         gbid = request.form['gbid']
-        results = do_query("SELECT Thread.id, Photo.link, Thread.thread_name, Status.status_name, Thread.start_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Thread.id=?; ",(gbid,), fetchall = True)
+        results = do_query("SELECT Thread.id, Starter.id, Photo.link, Link.link, Thread.thread_name, Starter.starter_name, Status.status_name, Thread.start_date FROM Thread JOIN Starter ON Starter.id = Thread.starter_id JOIN Status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id JOIN Link ON Thread.id = Link.thread_id WHERE Thread.id=?; ",(gbid,), fetchall = True)
     return jsonify({'htmlresponse': render_template('threadinfo.html', results = results, title = results[2])})
 
 @app.route ("/search", methods=["POST", "GET"])

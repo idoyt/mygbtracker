@@ -1,7 +1,8 @@
 {% for results in results %}
+
 <button type="button" name="button" class="gbinfo btn" data-id="{{results[0]}}">
   <div class = "container">
-              <p><img alt="picture" src="{{results[1]}}" width="100%" height="auto"></p>
+              <p><img class="lazy" alt="picture" src="{{results[1]}}" width="100%" height="auto"></p>
               <p>{{results[2]}}</p>
               <p>{{results[3]}}</p>
               <p>Posted:{{results[4]}}</p>
