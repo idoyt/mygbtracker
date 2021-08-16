@@ -19,18 +19,17 @@ def do_query(query, data = None, fetchall = False):
 
 @app.route('/')
 def index():
-    newest = do_query("SELECT Thread.start_date FROM Thread ORDER BY Thread.start_date DESC;", data = None , fetchall = False)
-    results = do_query("SELECT Thread.id, Photo.link, Thread.thread_name, Status.status_name, Thread.start_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Thread.start_date = ? GROUP BY Thread.id ORDER BY Thread.start_date DESC;", (newest[0],), fetchall = True)
+    results = do_query("SELECT Thread.id, Photo.id, Thread.thread_name, Status.status_name, Thread.start_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id GROUP BY Thread.id ORDER BY Thread.start_date DESC LIMIT 8;", data = None, fetchall = True)
     return render_template("index.html", results = results, title = "Home")
 
 @app.route('/groupbuy')
 def groupbuy():
-    results = do_query("SELECT Thread.id, Photo.link, Thread.thread_name, Status.status_name, Thread.start_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Status.id=2 GROUP BY Thread.id ORDER BY Thread.start_date DESC;", data = None , fetchall = True)
+    results = do_query("SELECT Thread.id, Photo.id, Thread.thread_name, Status.status_name, Thread.start_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Status.id=2 GROUP BY Thread.id ORDER BY Thread.start_date DESC;", data = None , fetchall = True)
     return render_template("threads.html", results = results, title = "Group Buy")
 
 @app.route('/interestcheck')
 def interestcheck():
-    results = do_query("SELECT Thread.id, Photo.link, Thread.thread_name, Status.status_name, Thread.start_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Status.id=3 GROUP BY Thread.id ORDER BY Thread.start_date DESC;", data = None , fetchall = True)
+    results = do_query("SELECT Thread.id, Photo.id, Thread.thread_name, Status.status_name, Thread.start_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Status.id=3 GROUP BY Thread.id ORDER BY Thread.start_date DESC;", data = None , fetchall = True)
     return render_template("threads.html", results = results, title = "Interest Check")
 
 @app.route("/thread/<int:id>")

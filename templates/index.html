@@ -5,9 +5,7 @@
     <h2>THIS IS A WEBAPP THAT TRACKS THREADS FROM <a href="https://geekhack.org/index.php">GEEKHACK</a></h2>
     <h2>HERE ARE THE NEWEST THREADS FROM THE WEBSITE</h2>
 
-  <marquee  scrollamount = "6" behavior="scroll" direction="right" height="auto" width="100%" onmouseover="stop()" onmouseout="start()">
-              {% include 'gridcontainer.html' %}
-           </marquee>
+    {% include 'gridcontainer.html' %}
 
 </div>
 {% endblock %}
