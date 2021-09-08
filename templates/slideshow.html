@@ -1,28 +1,19 @@
 <!-- Container for the image gallery -->
-<div class="container">
+<div class="slideshow-container">
+{%for im in img%}
+<div class="mySlides slideshowfade">
+  <div class="numbertext">{{im[1]}} / {{(img[-1])[-1]}}</div>
+  <img src="{{url_for('static',filename='images/'+im[0]|string+'.jpg')}}" style="width:948px; height:533px">
+</div>
+{%endfor%}
 
-  <!-- Full-width images with number text -->
-  {%for i in no_img%}
-  {%for img in results%}
-  <div class="mySlides">
-    <div class="numbertext">{{i}} / {{no_img[-1]}}</div>
-      <img src="{{img[1]}}" style="width:100%">
-  </div>
+<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+<a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+</div>
+<br>
+<div style="text-align:center">
+  {%for im in img%}
+  <span class="dot" onclick="currentSlide({{im[1]}})"></span>
   {%endfor%}
-  {%endfor%}
-
-  <!-- Next and previous buttons -->
-  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-  <a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-  <!-- Thumbnail images -->
-  <div class="row">
-    <div class="column">
-      {%for no_img in no_img%}
-      {%for img in results%}
-      <img class="demo cursor" src="{{img[1]}}" style="width:100%" onclick="currentSlide({{no_img}})" alt="Picture">
-      {%endfor%}
-      {%endfor%}
-    </div>
-  </div>
 </div>

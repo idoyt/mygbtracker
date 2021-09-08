@@ -34,18 +34,23 @@ def interestcheck():
 
 @app.route("/thread/<int:id>")
 def thread(id):
-    results = do_query("SELECT Thread.id, Starter.id, Photo.link, Link.link, Thread.thread_name, Starter.starter_name, Status.status_name, Thread.start_date FROM Thread JOIN Starter ON Starter.id = Thread.starter_id JOIN Status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id JOIN Link ON Thread.id = Link.thread_id WHERE Thread.id=?; ",(id,), fetchall = True)
-    imgs = len(results)
-    no_img = list(range(1,int(imgs)+1, 1))
-    print(no_img)
-    return render_template("thread.html", results = results, no_img = no_img, title = (results[0])[2])
+    results = do_query("SELECT Thread.id, Starter.id, Link.link, Thread.thread_name, Starter.starter_name, Status.status_name, Thread.start_date FROM Thread JOIN Starter ON Starter.id = Thread.starter_id JOIN Status ON Status.id = Thread.status_id LEFT JOIN Link ON Thread.id = Link.thread_id WHERE Thread.id=?;",(id,), fetchall = True)
+    imgs = do_query("SELECT Photo.id FROM Photo WHERE Photo.thread_id=?;",(id,), fetchall = True)
+    img = []
+    for i in range(1, len(imgs)+1):
+        img.append(imgs[i-1] + (i,))
+    return render_template("thread.html", results = results, img = img, title = (results[0])[4])
 
 @app.route("/ajaxfile", methods=["POST","GET"])
 def ajaxfile():
     if request.method == 'POST':
         gbid = request.form['gbid']
-        results = do_query("SELECT Thread.id, Starter.id, Photo.link, Link.link, Thread.thread_name, Starter.starter_name, Status.status_name, Thread.start_date FROM Thread JOIN Starter ON Starter.id = Thread.starter_id JOIN Status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id JOIN Link ON Thread.id = Link.thread_id WHERE Thread.id=?; ",(gbid,), fetchall = True)
-    return jsonify({'htmlresponse': render_template('threadinfo.html', results = results, title = results[2])})
+        results = do_query("SELECT Thread.id, Starter.id, Link.link, Thread.thread_name, Starter.starter_name, Status.status_name, Thread.start_date FROM Thread JOIN Starter ON Starter.id = Thread.starter_id JOIN Status ON Status.id = Thread.status_id LEFT JOIN Link ON Thread.id = Link.thread_id WHERE Thread.id=?;",(gbid,), fetchall = True)
+        imgs = do_query("SELECT Photo.id FROM Photo WHERE Photo.thread_id=?;",(gbid,), fetchall = True)
+        img = []
+        for i in range(1, len(imgs)+1):
+            img.append(imgs[i-1] + (i,))
+    return jsonify({'htmlresponse': render_template('threadinfo.html', results = results, img = img)})
 
 @app.route ("/search", methods=["POST", "GET"])
 def search():
