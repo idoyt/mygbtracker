@@ -4,13 +4,13 @@
           <td style="width:200px">
           <b><a class="confirm" href="https://geekhack.org/index.php?topic={{(results[0])[0]}}">{{(results[0])[3]}}</a></b>
           <p><a class="confirm" href="https://geekhack.org/index.php?action=profile;u={{(results[0])[1]}}">{{(results[0])[4]}}</a></p>
-          <p><a href="/thread/{{(results[0])[0]}}">Open in New Page</a></p>
           <p>{{(results[0])[5]}}</p>
           <p>Posted: {{(results[0])[6]}}</p>
           <b>LINKS</b>
           {%for link in results%}
           <p><a class="confirm" href="{{link[2]}}">{{link[2]}}</a></p>
           {%endfor%}
+          <p><a class="btn btn-primary" href="/thread/{{(results[0])[0]}}">Open in New Page</a></p>
         </td>
     </tr>
 </table>

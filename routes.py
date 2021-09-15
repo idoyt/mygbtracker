@@ -39,7 +39,7 @@ def thread(id):
     img = []
     for i in range(1, len(imgs)+1):
         img.append(imgs[i-1] + (i,))
-    return render_template("thread.html", results = results, img = img, title = (results[0])[4])
+    return render_template("thread.html", results = results, img = img, title = (results[0])[3])
 
 @app.route("/ajaxfile", methods=["POST","GET"])
 def ajaxfile():
