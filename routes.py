@@ -59,6 +59,8 @@ def search():
         results = do_query("SELECT Thread.id, Photo.link, Thread.thread_name, Status.status_name, Thread.start_date FROM Thread JOIN status ON Status.id = Thread.status_id JOIN Photo ON Thread.id = Photo.thread_id WHERE Thread.thread_name LIKE '%' || ? || '%' GROUP BY Thread.id ORDER BY Thread.thread_name;", (request.form.get("filter"),), fetchall = True)
         if len(results) == 0:
             return redirect ("/error")
+        elif request.form.get("filter") = '':
+            return redirect ('/error')
         else:
             return render_template("searchresults.html", results = results, title = "Search Results")
 
