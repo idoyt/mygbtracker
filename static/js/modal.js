@@ -1,3 +1,4 @@
+// get data and open modal on thread preview click
 $(document).ready(function(){
     $('.gbinfo').click(function(){
         var gbid = $(this).data('id');

@@ -1,6 +1,9 @@
+//slideshow js
+
 var slideIndex = 1;
 showSlides(slideIndex);
 
+// go next image
 function plusSlides(n) {
   showSlides(slideIndex += n);
 }
@@ -9,6 +12,7 @@ function currentSlide(n) {
   showSlides(slideIndex = n);
 }
 
+// correct image shown
 function showSlides(n) {
   var i;
   var slides = document.getElementsByClassName("mySlides");

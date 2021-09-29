@@ -7,22 +7,19 @@ import validators
 
 db = "mygbdatabase.db"
 
+#gets all tbe photo links
 connection = sqlite3.connect(db)
 cursor = connection.cursor()
-sql = "SELECT Photo.id, Photo.link FROM Photo" # WHERE Photo.link LIKE '%i.imgur.com/%' OR '%imgur.com/%'"
+sql = "SELECT Photo.id, Photo.link FROM Photo"
 something = cursor.execute(sql)
 results = something.fetchall()
 connection.close()
 
-'''for i in something:
-    valid=validators.url(i[0])
-    if valid==True:
-        pass
-    else:
-        print("Invalid url", i[0])'''
 
+# loops through the links and downloads them, naming them as the id in the database.
 for i in results:
     try:
         x = urllib.request.urlretrieve(i[1], f"static/images/{i[0]}.jpg")
     except Exception as e:
+        #prints it so i can save the log of the console
         print(i)

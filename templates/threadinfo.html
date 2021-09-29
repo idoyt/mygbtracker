@@ -1,3 +1,4 @@
+<!-- Container for the thread info -->
 <table border='0' width='100%'>
     <tr>
           <td>{% include 'slideshow.html' %}</td>
@@ -10,7 +11,7 @@
           {%for link in results%}
           <p><a class="confirm" href="{{link[2]}}">{{link[2]}}</a></p>
           {%endfor%}
-          <p><a class="btn btn-primary" href="/thread/{{(results[0])[0]}}">Open in New Page</a></p>
+          <button type="button" class="btn btn-primary" href="/thread/{{(results[0])[0]}}">Open in new window</button>
         </td>
     </tr>
 </table>

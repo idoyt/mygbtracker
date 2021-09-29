@@ -5,6 +5,7 @@ body {
   font-family: Comic Sans MS;
   overflow-x: hidden;
 }
+/* header */
 .header {
   font-size: 50px;
   width: 100%;
@@ -13,6 +14,29 @@ body {
   position: fixed;
   background-color: white;
 }
+
+#searchbar {
+    text-align: center;
+    padding-top: 5%;
+    padding-bottom: 50px;
+}
+
+#search {
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    padding: 15px;
+    font-size: 20px;
+    border-color: lightgrey;
+    border-style: solid;
+    border-radius: 50px;
+    width: 50%;
+    outline: none;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    height: 20px;
+    width: 270px;
+}
+
 /* The side navigation menu */
 .sidebar {
   margin-top: 69px;
@@ -45,13 +69,7 @@ body {
   cursor: pointer;
 }
 
-/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
-div.content {
-  margin-left: 200px;
-  padding: 1px 16px;
-  height: 1000px;
-}
-
+/* present data */
 .wrapper {
   background-color: inherit;
   padding: 10px;
@@ -93,7 +111,7 @@ div.content {
   width: 69%;
   height: 69%;
 }
-
+/* footer */
 .footer {
   position: absolute;
   bottom: 69px;
@@ -115,26 +133,4 @@ div.content {
     text-align: center;
     float: none;
   }
-}
-
-#searchbar {
-    text-align: center;
-    padding-top: 5%;
-    padding-bottom: 50px;
-}
-
-#search {
-    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-    padding: 15px;
-    font-size: 20px;
-    border-color: lightgrey;
-    border-style: solid;
-    border-radius: 50px;
-    width: 50%;
-    outline: none;
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    height: 20px;
-    width: 270px;
 }
