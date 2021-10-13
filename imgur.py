@@ -7,7 +7,7 @@ import validators
 
 db = "mygbdatabase.db"
 
-#gets all tbe photo links
+#gets all the photo links
 connection = sqlite3.connect(db)
 cursor = connection.cursor()
 sql = "SELECT Photo.id, Photo.link FROM Photo"

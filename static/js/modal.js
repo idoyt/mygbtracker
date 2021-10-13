@@ -3,7 +3,7 @@ $(document).ready(function(){
     $('.gbinfo').click(function(){
         var gbid = $(this).data('id');
         $.ajax({
-            url: '/ajaxfile',
+            url: '/popup',
             type: 'post',
             data: {gbid: gbid},
             success: function(data){
