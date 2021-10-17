@@ -1,7 +1,6 @@
 <!-- Container for the thread preview-->
-
 {% for results in results %}
-<button type="button" name="button" class="gbinfo btn" data-id="{{results[0]}}">
+<button type="button" name="button" class="threadinfo btn" data-id="{{results[0]}}">
   <div class = "container">
               <p><img class="lazy" alt="" src="static/images/{{results[1]}}.jpg" width="100%" height="auto" onerror="this.src='static/images/default.jpg'"></p>
               <p><b>{{results[2]}}</b></p>

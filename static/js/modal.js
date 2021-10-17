@@ -1,11 +1,11 @@
 // get data and open modal on thread preview click
 $(document).ready(function(){
-    $('.gbinfo').click(function(){
-        var gbid = $(this).data('id');
+    $('.threadinfo').click(function(){
+        var id = $(this).data('id');
         $.ajax({
             url: '/popup',
             type: 'post',
-            data: {gbid: gbid},
+            data: {id: id},
             success: function(data){
                 $('.modal-body').html(data);
                 $('.modal-body').append(data.htmlresponse);
@@ -13,4 +13,11 @@ $(document).ready(function(){
             }
         });
     });
+});
+
+//escape key close popup
+$(document).keydown(function(event) {
+  if (event.keyCode == 27) {
+    $('#Modal').modal('hide');
+  }
 });

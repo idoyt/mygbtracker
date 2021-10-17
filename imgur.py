@@ -16,10 +16,10 @@ results = something.fetchall()
 connection.close()
 
 
-# loops through the links and downloads them, naming them as the id in the database.
+# loops through the links, downloads them, naming them as the id in the database
 for i in results:
     try:
         x = urllib.request.urlretrieve(i[1], f"static/images/{i[0]}.jpg")
     except Exception as e:
-        #prints it so i can save the log of the console
+        # print it, see which imgs did not download
         print(i)

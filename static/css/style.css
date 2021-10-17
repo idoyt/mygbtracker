@@ -75,7 +75,7 @@ body {
   padding: 10px;
   margin-left: 200px;
   z-index: -1;
-  width: 100% - 200px;
+  width: calc(100% - 200px);
   padding-right: 2;
   position: absolute;
   top: 69px
@@ -113,7 +113,6 @@ img {vertical-align: middle;}
 
 /* Slideshow container */
 .slideshow-container {
-  max-width: 1000px;
   position: relative;
   margin: auto;
 }
