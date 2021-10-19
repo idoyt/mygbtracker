@@ -1,6 +1,7 @@
 from urllib.request import urlopen as uReq
 from bs4 import BeautifulSoup as soup
-import substring, sqlite3
+import substring
+import sqlite3
 
 db = "mygbdatabase.db"
 
@@ -29,12 +30,14 @@ def add_id(id, status):
 #html parsing
 page_soup = soup(page_html, "html.parser")
 #getting last page in the pagination thing
-paging = page_soup.find("div",{"class":"pagesection"}).find("div",{"class":"pagelinks"}).findAll("a",{"class":"navPages"})
-# the end of link increases by 50 every time you go next page.  *50 to get last link
+paging = page_soup.find("div",{"class":"pagesection"})
+         .find("div",{"class":"pagelinks"})
+         .findAll("a",{"class":"navPages"})
+#the end of link increases by 50 every time you go next page. *50 to get last link
 last_page = paging[len(paging)-2].text
 last_pages = (int(last_page)*50)-50
 
-# loop through to get all pages
+#loop through to get all pages
 pages = list(range(0,int(last_pages)+1, 50))
 for page in pages:
     url = "https://geekhack.org/index.php?board=70.%s" %(page)
