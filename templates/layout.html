@@ -19,14 +19,11 @@
     <script type="text/javascript" src="{{url_for('static', filename='js/modal.js')}} "></script>
     <script type="text/javascript" src="{{url_for('static', filename='js/slideshow.js')}}"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
-    <script type="text/javascript" src="jquery.are-you-sure.js"></script>
-    <script type="text/javascript" src="{{url_for('static', filename='js/areyousure.js')}}"></script>
   </head>
   <body>
     {% include 'header.html' %}
     {% include 'nav.html' %}
     {% block content %}{% endblock %}
-
     <!-- modal -->
     <div class="modal fade" id="Modal" role="dialog">
             <div class="modal-dialog mw-100 w-75">
@@ -43,6 +40,5 @@
                 </div>
             </div>
     </div>
-
   </body>
 </html>
