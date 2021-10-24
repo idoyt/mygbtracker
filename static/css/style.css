@@ -96,10 +96,12 @@ body {
   font-size: 13px;
 }
 
-.gbinfo:hover {
-  width: 100%;
+.threadinfo {
+  padding: 0;
+}
+
+.threadinfo:hover .container {
   background-color: #CCCCC8;
-  font-size: 20px;
   transition-duration: 0.4s;
   cursor: pointer;
   padding: 0;
@@ -110,6 +112,7 @@ body {
 .footer {
   position: absolute;
   bottom: 69px;
+}
 
 /* slideshow */
 .mySlides {display: none}
@@ -192,7 +195,6 @@ img {vertical-align: middle;}
   to {opacity: 1}
 }
 
-}
 /* On screens that are less than 700px wide, make the sidebar into a topbar */
 @media screen and (max-width: 700px) {
   .sidebar {
