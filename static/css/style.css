@@ -2,7 +2,7 @@ body {
   background-color: white;
   color: black;
   border-color: #E9492B;
-  font-family: Comic Sans MS;
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
   overflow-x: hidden;
 }
 /* header */
@@ -92,9 +92,8 @@ body {
   background-color: rgba(255, 255, 255, 0.8);
   text-align: center;
   padding: 0;
-  font-size: 30px;
   overflow-y: auto;
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .gbinfo:hover {
@@ -106,6 +105,11 @@ body {
   padding: 0;
   margin: 0;
 }
+
+/* footer */
+.footer {
+  position: absolute;
+  bottom: 69px;
 
 /* slideshow */
 .mySlides {display: none}
@@ -188,10 +192,6 @@ img {vertical-align: middle;}
   to {opacity: 1}
 }
 
-/* footer */
-.footer {
-  position: absolute;
-  bottom: 69px;
 }
 /* On screens that are less than 700px wide, make the sidebar into a topbar */
 @media screen and (max-width: 700px) {
