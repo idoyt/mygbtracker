@@ -59,33 +59,6 @@ def interestcheck():
                            title="Interest Check")
 
 
-@app.route("/thread/<int:id>")
-def thread(id):
-    # opens the thread info in a new page
-    # gets all the relevant data from the database where the id = to the thread that it got it from.
-    try:
-        results = do_query("""SELECT Thread.id, Starter.id, Link.link,
-                           Thread.thread_name, Starter.starter_name,
-                           Category.category_name, Thread.start_date
-                           FROM Thread
-                           JOIN Starter ON Starter.id = Thread.starter_id
-                           JOIN Category ON Category.id = Thread.category_id
-                           LEFT JOIN Link ON Thread.id = Link.thread_id
-                           WHERE Thread.id=?;""",
-                           (id,), fetchall=True)
-        imgs = do_query("""SELECT Photo.id
-                        FROM Photo
-                        WHERE Photo.thread_id=?;""",
-                        (id,), fetchall=True)
-        img = []  # creates a list of images and numbers them so that the numbers on the image works.
-        for i in range(1, len(imgs)+1):
-            img.append(imgs[i-1] + (i,))
-        return render_template("thread.html", results=results, img=img,
-                               title=(results[0])[3])
-    except Exception as e:
-        return abort(404)
-
-
 @app.route("/popup", methods=["POST"])
 def popup():
     # modal popup for thread info
@@ -109,7 +82,7 @@ def popup():
     for i in range(1, len(imgs)+1):
         img.append(imgs[i-1] + (i,))
     return jsonify({'htmlresponse': render_template('threadinfo.html',
-                   results=results, img=img)})
+                   results=results, img=img, popup=True)})
 
 
 @app.route("/search", methods=["POST"])
@@ -126,14 +99,8 @@ def search():
                        GROUP BY Thread.id
                        ORDER BY Thread.thread_name;""",
                        (request.form.get("filter"),), fetchall=True)
-    # error handling
-    if len(results) == 0:  # if no results
-        return abort(404)
-    elif request.form.get("filter") == '':  # if nothing is entered
-        return abort(404)
-    else:
-        return render_template("searchresults.html", results=results,
-                               noResults=len(results), title="Search Results")
+    return render_template("searchresults.html", results=results,
+                           noResults=len(results), title="Search Results")
 
 
 @app.errorhandler(404)

@@ -1,4 +1,6 @@
 <!-- Container for the thread info -->
+<script type="text/javascript" src="{{url_for('static', filename='js/slideshow.js')}}"></script>
+
 <table border='0' width='100%'>
     <tr>
           <td>{% include 'slideshow.html' %}</td>
@@ -8,10 +10,13 @@
           <p>{{(results[0])[5]}}</p>
           <p>Posted: {{(results[0])[6]}}</p>
           <b>LINKS</b>
-          {%for link in results%}
-          <p><a class="confirm" href="{{link[2]}}">{{link[2]}}</a></p>
-          {%endfor%}
-          <button type="button" class="btn btn-primary" href="/thread/{{(results[0])[0]}}">Open in new window</button>
+            {% for link in results %}
+              {% if link[2] != None %}
+              <p><a class="confirm" href="{{link[2]}}">{{link[2]}}</a></p>
+              {% else %}
+              <p>Thread contains no links</p>
+              {% endif %}
+            {% endfor %}
         </td>
     </tr>
 </table>

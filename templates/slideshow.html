@@ -1,3 +1,7 @@
+<script>
+  showSlides(slideIndex);
+</script>
+
 <!-- Container for the image gallery -->
 <div class="slideshow-container" style="width:474px; height:266.5px">
 {%for im in img%}
@@ -17,7 +21,3 @@
   <span class="dot" onclick="currentSlide({{im[1]}})"></span>
   {%endfor%}
 </div>
-
-<script>
-  showSlides(slideIndex);
-</script>
