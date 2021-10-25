@@ -21,20 +21,20 @@ def do_query(query, data=None, fetchall=False):
 @app.route('/')
 def index():
     # home page shows newest 8 threads in my database NOT ON GEEKHACK
-    results = do_query("""SELECT Thread.id, Photo.id, Thread.thread_name,
+    thread_info = do_query("""SELECT Thread.id, Photo.id, Thread.thread_name,
                        Category.category_name, Thread.start_date
                        FROM Thread
                        JOIN Category ON Category.id = Thread.category_id
                        JOIN Photo ON Thread.id = Photo.thread_id
                        GROUP BY Thread.id ORDER BY Thread.start_date
                        DESC LIMIT 8;""", fetchall=True)
-    return render_template("index.html", results=results, title="Home")
+    return render_template("index.html", thread_info=thread_info, title="Home")
 
 
 @app.route('/groupbuy')
 def groupbuy():
     # displays all group buy threads and their data.
-    results = do_query("""SELECT Thread.id, Photo.id, Thread.thread_name,
+    thread_info = do_query("""SELECT Thread.id, Photo.id, Thread.thread_name,
                        Category.category_name,Thread.start_date
                        FROM Thread
                        JOIN Category ON Category.id = Thread.category_id
@@ -42,20 +42,21 @@ def groupbuy():
                        WHERE Category.id=2
                        GROUP BY Thread.id
                        ORDER BY Thread.start_date DESC;""", fetchall=True)
-    return render_template("threads.html", results=results, title="Group Buy")
+    return render_template("threads.html", thread_info=thread_info,
+                           title="Group Buy")
 
 
 @app.route('/interestcheck')
 def interestcheck():
     # displays all interest check threads and their data.
-    results = do_query("""SELECT Thread.id, Photo.id, Thread.thread_name,
+    thread_info = do_query("""SELECT Thread.id, Photo.id, Thread.thread_name,
                        Category.category_name, Thread.start_date
                        FROM Thread
                        JOIN Category ON Category.id = Thread.category_id
                        JOIN Photo ON Thread.id = Photo.thread_id
                        WHERE Category.id=3 GROUP BY Thread.id
                        ORDER BY Thread.start_date DESC;""", fetchall=True)
-    return render_template("threads.html", results=results,
+    return render_template("threads.html", thread_info=thread_info,
                            title="Interest Check")
 
 
@@ -65,7 +66,7 @@ def popup():
     # gets id from the post that user clicked.
     id = request.form['id']
     # gets data from database of the thread that the person clicks on.
-    results = do_query("""SELECT Thread.id, Starter.id, Link.link,
+    thread_info = do_query("""SELECT Thread.id, Starter.id, Link.link,
                        Thread.thread_name,Starter.starter_name,
                        Category.category_name, Thread.start_date
                        FROM Thread
@@ -82,14 +83,14 @@ def popup():
     for i in range(1, len(imgs)+1):
         img.append(imgs[i-1] + (i,))
     return jsonify({'htmlresponse': render_template('threadinfo.html',
-                   results=results, img=img, popup=True)})
+                   thread_info=thread_info, img=img, popup=True)})
 
 
 @app.route("/search", methods=["POST"])
 def search():
     # search bar.
     # uses like to search for anything like user input and group make sure there is only one box for each thread.
-    results = do_query("""SELECT Thread.id, Photo.id, Thread.thread_name,
+    thread_info = do_query("""SELECT Thread.id, Photo.id, Thread.thread_name,
                        Category.category_name, Thread.start_date
                        FROM Thread
                        JOIN category ON Category.id = Thread.category_id
@@ -99,8 +100,8 @@ def search():
                        GROUP BY Thread.id
                        ORDER BY Thread.thread_name;""",
                        (request.form.get("filter"),), fetchall=True)
-    return render_template("searchresults.html", results=results,
-                           noResults=len(results), title="Search Results")
+    return render_template("searchresults.html", thread_info=thread_info,
+                           no_thread_info=len(thread_info), title="Search Results")
 
 
 @app.errorhandler(404)

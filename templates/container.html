@@ -1,11 +1,11 @@
 <!-- Container for the thread preview-->
-{% for results in results %}
-<button type="button" name="button" class="threadinfo btn" data-id="{{results[0]}}">
+{% for thread_info in thread_info %}
+<button type="button" name="button" class="threadinfo btn" data-id="{{thread_info[0]}}">
   <div class = "container">
-              <p><img class="lazy" alt="" src="static/images/{{results[1]}}.jpg" width="100%" height="266.5px" onerror="this.src='static/images/default.jpg'"></p>
-              <p><b>{{results[2]}}</b></p>
-              <p>{{results[3]}}</p>
-              <p>Posted:{{results[4]}}</p>
+              <p><img class="lazy" alt="" src="static/images/{{thread_info[1]}}.jpg" width="100%" height="auto" onerror="this.src='static/images/default.jpg'"></p>
+              <p><b>{{thread_info[2]}}</b></p>
+              <p>{{thread_info[3]}}</p>
+              <p>Posted:{{thread_info[4]}}</p>
   </div>
   </button>
 {% endfor %}

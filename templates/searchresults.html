@@ -1,11 +1,11 @@
 {% extends 'layout.html' %}
 {% block content %}
-<!-- Search Results -->
+<!-- Search thread_info -->
 <div class="wrapper">
   <center>
-  <h1>{{noResults}} result found</h1>
+  <h1>{{no_thread_info}} result found</h1>
     {% include 'gridcontainer.html' %}
-    {% if noResults == 0 %}
+    {% if no_thread_info == 0 %}
       <p><a href="/">Click Here</a> to go to the Home Page</p>
     {% endif %}
   </center>
