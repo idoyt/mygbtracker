@@ -82,8 +82,9 @@ def popup():
     img = []  # creates a list of images and numbers them so that the numbers on the image works.
     for i in range(1, len(imgs)+1):
         img.append(imgs[i-1] + (i,))
+    imgs = img
     return jsonify({'htmlresponse': render_template('threadinfo.html',
-                   thread_info=thread_info, img=img, popup=True)})
+                   thread_info=thread_info, imgs=imgs, popup=True)})
 
 
 @app.route("/search", methods=["POST"])
@@ -101,7 +102,8 @@ def search():
                        ORDER BY Thread.thread_name;""",
                        (request.form.get("filter"),), fetchall=True)
     return render_template("searchresults.html", thread_info=thread_info,
-                           no_thread_info=len(thread_info), title="Search Results")
+                           no_thread_info=len(thread_info),
+                           title="Search Results")
 
 
 @app.errorhandler(404)

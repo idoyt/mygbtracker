@@ -7,7 +7,7 @@
 {%for img in imgs%}
 <div class="mySlides slideshowfade">
   <div class="numbertext">{{img[1]}} / {{(imgs[-1])[-1]}}</div>
-  <img src="{{url_for('static',filename='images/'+im[0]|string+'.jpg')}}" style="width:474px; height:266.5px" onerror="this.src='{{url_for('static',filename='images/default.jpg')}}'">
+  <img src="{{url_for('static',filename='images/'+img[0]|string+'.jpg')}}" style="width:474px; height:266.5px" onerror="this.src='{{url_for('static',filename='images/default.jpg')}}'">
 </div>
 {%endfor%}
 
@@ -18,6 +18,6 @@
 <br>
 <div style="text-align:center">
   {%for img in img%}
-  <span class="dot" onclick="currentSlide({{im[1]}})"></span>
+  <span class="dot" onclick="currentSlide({{img[1]}})"></span>
   {%endfor%}
 </div>
