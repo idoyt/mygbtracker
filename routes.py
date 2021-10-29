@@ -10,9 +10,12 @@ def do_query(query, data=None, fetchall=False):
     connection = sqlite3.connect(db)
     cursor = connection.cursor()
     if data is None:
-        cursor.execute(query)  # if there is no need to filter the data
+        # if there is no need to filter the data
+        cursor.execute(query)
     else:
-        cursor.execute(query, data)  # have to filter the data
+        # have to filter the data
+        cursor.execute(query, data)
+    #fetchall when fetchall is true
     results = cursor.fetchall() if fetchall else cursor.fetchone()
     connection.close()
     return results
@@ -20,7 +23,7 @@ def do_query(query, data=None, fetchall=False):
 
 @app.route('/')
 def index():
-    # home page shows newest 8 threads in my database NOT ON GEEKHACK
+    # home page shows newest 8 threads in MY database
     thread_info = do_query("""SELECT Thread.id, Photo.id, Thread.thread_name,
                        Category.category_name, Thread.start_date
                        FROM Thread
@@ -33,7 +36,7 @@ def index():
 
 @app.route('/groupbuy')
 def groupbuy():
-    # displays all group buy threads and their data.
+    # query to get all data to display all group buy threads information.
     thread_info = do_query("""SELECT Thread.id, Photo.id, Thread.thread_name,
                        Category.category_name,Thread.start_date
                        FROM Thread
@@ -48,7 +51,7 @@ def groupbuy():
 
 @app.route('/interestcheck')
 def interestcheck():
-    # displays all interest check threads and their data.
+    # query to get all data to display all ginterest check threads information.
     thread_info = do_query("""SELECT Thread.id, Photo.id, Thread.thread_name,
                        Category.category_name, Thread.start_date
                        FROM Thread
@@ -63,9 +66,9 @@ def interestcheck():
 @app.route("/popup", methods=["POST"])
 def popup():
     # modal popup for thread info
-    # gets id from the post that user clicked.
+    # recieves id of container that the user clicked.
     id = request.form['id']
-    # gets data from database of the thread that the person clicks on.
+    # gets all data for the thread that the user clicks on.
     thread_info = do_query("""SELECT Thread.id, Starter.id, Link.link,
                        Thread.thread_name,Starter.starter_name,
                        Category.category_name, Thread.start_date
@@ -75,22 +78,26 @@ def popup():
                        LEFT JOIN Link ON Thread.id = Link.thread_id
                        WHERE Thread.id=?;""",
                        (id,), fetchall=True)
+    # get all images which are related to the thread.
     imgs = do_query("""SELECT Photo.id
                     FROM Photo
                     WHERE Photo.thread_id=?;""",
                     (id,), fetchall=True)
-    img = []  # creates a list of images and numbers them so that the numbers on the image works.
+    # numbers all images from 1 - x.
+    # creates a list [(images, number,)]
+    # slideshow js needs this to work also needed to show which image you're on
+    imgs_with_number = []
     for i in range(1, len(imgs)+1):
-        img.append(imgs[i-1] + (i,))
-    imgs = img
+        imgs_with_number.append(imgs[i-1] + (i,))
+    imgs = imgs_with_number
     return jsonify({'htmlresponse': render_template('threadinfo.html',
                    thread_info=thread_info, imgs=imgs, popup=True)})
 
 
 @app.route("/search", methods=["POST"])
 def search():
-    # search bar.
-    # uses like to search for anything like user input and group make sure there is only one box for each thread.
+    # searchbar.
+    # searches for anything that is similar to whatever the user inputted.
     thread_info = do_query("""SELECT Thread.id, Photo.id, Thread.thread_name,
                        Category.category_name, Thread.start_date
                        FROM Thread
@@ -119,4 +126,4 @@ def error404(error):
 
 # tells flask what port to run on
 if __name__ == "__main__":
-    app.run(debug=True, port=1111)
+    app.run(debug=False, port=1111)

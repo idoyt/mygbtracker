@@ -1,4 +1,5 @@
 <script>
+  var slideIndex = 1;
   showSlides(slideIndex);
 </script>
 
@@ -17,7 +18,7 @@
 </div>
 <br>
 <div style="text-align:center">
-  {%for img in img%}
+  {%for img in imgs%}
   <span class="dot" onclick="currentSlide({{img[1]}})"></span>
   {%endfor%}
 </div>

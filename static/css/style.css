@@ -10,7 +10,7 @@ body {
   font-size: 50px;
   width: 100%;
   border-bottom: 1px solid #CCCCC8;
-  height: 69px;
+  height: 65px;
   position: fixed;
   background-color: white;
 }
@@ -22,11 +22,9 @@ body {
 }
 
 #search {
-    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
     padding: 15px;
     font-size: 20px;
-    border-color: lightgrey;
-    border-style: solid;
+    border: solid lightgrey;
     border-radius: 50px;
     width: 50%;
     outline: none;
@@ -196,17 +194,6 @@ img {vertical-align: middle;}
 @keyframes fade {
   from {opacity: .4}
   to {opacity: 1}
-}
-
-/* On screens that are less than 700px wide, make the sidebar into a topbar */
-@media screen and (max-width: 700px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-  }
-  .sidebar a {float: left;}
-  div.content {margin-left: 0;}
 }
 
 /* On screens that are less than 400px, display the bar vertically, instead of horizontally */
